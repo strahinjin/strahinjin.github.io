@@ -5,11 +5,15 @@
         <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
-        <h1>Web Audio API <span>fooling (g)(a)round</span></h1>
+        <h1>Web Audio API <span class="h1-inner">fooling g<span>a</span>round</span></h1>
         <div class="options">
-            <!-- <div class="frequency-range">
-                <label for="freqVal"><span>Frequency:</span><span id="rangeValue">120</span></label>
-                <input type="range" min="120" max="1320" value="0" id="freqVal" oninput="rangeValue.innerText = this.value">
+            <!-- <div class="filter-frequency-range">
+                <label for="filterFreqVal"><span>Filter Frequency:</span><span id="freqRangeValue">100</span></label>
+                <input type="range" min="100" max="800" value="100" id="filterFreqVal" oninput="freqRangeValue.innerText = this.value">
+            </div>
+            <div class="filter-q-range">
+                <label for="filterQVal"><span>Filter Q:</span><span id="qRangeValue">1</span></label>
+                <input type="range" min="1" max="80" value="1" id="filterQVal" oninput="qRangeValue.innerText = this.value">
             </div> -->
             <div class="frequency-type">
                 <label class="block">Sound wave type</label>
@@ -22,20 +26,34 @@
                 <input type="radio" id="oscTypeSW" name="oscType" value="sawtooth">
                 <label for="oscTypeSW">sawtooth</label>
             </div>
-            <div class="notes">
-                <div id="noteC"><span>DO </span> | A</div>
-                <div id="noteD"><span>RE </span> | S</div>
-                <div id="noteE"><span>MI </span> | D</div>
-                <div id="noteF"><span>FA </span> | F</div>
-                <div id="noteG"><span>SOL </span> | H</div>
-                <div id="noteA"><span>LA </span> | J</div>
-                <div id="noteB"><span>SI </span> | K</div>
-                <div id="noteCup"><span>DO </span> | L</div>
+            <div class="octaves">
+                <label class="block">Octave</label>
+                <input type="radio" id="octave4" name="octave" value="octaveFour" checked>
+                <label for="octave4">fourth</label>
+                <input type="radio" id="octave5" name="octave" value="octaveFive">
+                <label for="octave5">fifth</label>
+                <input type="radio" id="octave6" name="octave" value="octaveSix">
+                <label for="octave6">sixth</label>
             </div>
         </div>
-        <button id="playRandom" class="btn">Play random song</button>
-        <button id="stopRandom" class="btn d-none stop">Stop please</button>
-        <!-- <button id="drumKick">DRUM KICK</button> -->
+        <div class="notes">
+            <div id="noteC"><span>DO </span> | A</div>
+            <div class="black" id="noteCD">W</div>
+            <div id="noteD"><span>RE </span> | S</div>
+            <div class="black" id="noteDE">E</div>
+            <div id="noteE"><span>MI </span> | D</div>
+            <div id="noteF"><span>FA </span> | F</div>
+            <div class="black" id="noteFG">Y</div>
+            <div id="noteG"><span>SOL </span> | H</div>
+            <div class="black" id="noteGA">U</div>
+            <div id="noteA"><span>LA </span> | J</div>
+            <div class="black" id="noteAB">I</div>
+            <div id="noteB"><span>SI </span> | K</div>
+            <div id="noteCup"><span>DO </span> | L</div>
+        </div>
+        <button id="playRandom" class="btn">Play random &#129313</button>
+        <button id="stopRandom" class="btn d-none stop">Stop please &#128557</button>
+        <canvas id="canvas"></canvas>
 
         <script src="index.js"></script>
 
