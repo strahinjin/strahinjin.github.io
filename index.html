@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Web Audio API</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+        <h1>Web Audio API <span>fooling (g)(a)round</span></h1>
+        <div class="options">
+            <!-- <div class="frequency-range">
+                <label for="freqVal"><span>Frequency:</span><span id="rangeValue">120</span></label>
+                <input type="range" min="120" max="1320" value="0" id="freqVal" oninput="rangeValue.innerText = this.value">
+            </div> -->
+            <div class="frequency-type">
+                <label class="block">Sound wave type</label>
+                <input type="radio" id="oscTypeT" name="oscType" value="triangle" checked>
+                <label for="oscTypeT">triangle</label>
+                <input type="radio" id="oscTypeS" name="oscType" value="sine">
+                <label for="oscTypeS">sine</label>
+                <input type="radio" id="oscTypeSQ" name="oscType" value="square">
+                <label for="oscTypeSQ">square</label>
+                <input type="radio" id="oscTypeSW" name="oscType" value="sawtooth">
+                <label for="oscTypeSW">sawtooth</label>
+            </div>
+            <div class="notes">
+                <div id="noteC"><span>DO </span> | A</div>
+                <div id="noteD"><span>RE </span> | S</div>
+                <div id="noteE"><span>MI </span> | D</div>
+                <div id="noteF"><span>FA </span> | F</div>
+                <div id="noteG"><span>SOL </span> | H</div>
+                <div id="noteA"><span>LA </span> | J</div>
+                <div id="noteB"><span>SI </span> | K</div>
+                <div id="noteCup"><span>DO </span> | L</div>
+            </div>
+        </div>
+        <button id="playRandom" class="btn">Play random song</button>
+        <button id="stopRandom" class="btn d-none stop">Stop please</button>
+        <!-- <button id="drumKick">DRUM KICK</button> -->
+
+        <script src="index.js"></script>
+
+    </body>
+</html>
