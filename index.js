@@ -1,5 +1,13 @@
 const audioContext = new AudioContext();
 
+let canvas = document.getElementById("canvas"),
+    canvasContext = canvas.getContext("2d");
+
+canvas.height = 400;
+canvas.width = 450;
+
+let isPlaying = false;
+
 // define primary sound control (gain)
 const primaryGainControl = audioContext.createGain();
 primaryGainControl.gain.setValueAtTime(0.05, 0);
@@ -270,9 +278,9 @@ function generateNote(noteSymbol) {
     baseSoundGain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + soundDuration);
 
     // custom sound wave type
-    var imag = new Float32Array([5, 2, 1, 75, 40]);   // sine
-    var real = new Float32Array(imag.length);  // cos
-    var customWave = audioContext.createPeriodicWave(real, imag);
+    // const imag = new Float32Array([50, 200, 1, 75, 40]);   // sine
+    // const real = new Float32Array(imag.length);  // cos
+    // const customWave = audioContext.createPeriodicWave(real, imag);
     // baseSoundOscilator.setPeriodicWave(customWave);
 
     // baseSoundOscilator.connect(baseSoundGain);
@@ -280,9 +288,16 @@ function generateNote(noteSymbol) {
     // // connect sound created to the main sound control
     // baseSoundFilter.connect(primaryGainControl);
 
+    const analyser = audioContext.createAnalyser();
+
     baseSoundOscilator.connect(baseSoundGain);
+    baseSoundGain.connect(analyser);
     // connect sound created to the main sound control
-    baseSoundGain.connect(primaryGainControl);
+    analyser.connect(primaryGainControl);
+
+    isPlaying = true;
+
+    drawWave(analyser);
 
 
     baseSoundOscilator.start();
@@ -325,10 +340,47 @@ document.getElementById("stopRandom").addEventListener("click", function () {
     document.getElementById("playRandom").classList.remove("d-none");
     document.getElementById("stopRandom").classList.add("d-none");
     randomSongInterval.clear();
+    isPlaying = false;
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
 });
 
 Array.prototype.slice.call(document.getElementsByClassName("notes")[0].children).forEach((item) => {
     item.addEventListener("click", () => {
         generateNote(item.getAttribute("id").replace("note", ""));
     })
-})
+});
+
+function drawWave(analyser) {
+
+    var buffer = new Float32Array(1024),
+        w = canvasContext.canvas.width;
+
+    // canvasContext.strokeStyle = "#777";
+    canvasContext.setTransform(1, 0, 0, -1, 0, 200); // flip y-axis and translate to center
+    // canvasContext.lineWidth = 2;
+
+    (function loop() {
+        analyser.getFloatTimeDomainData(buffer);
+
+        canvasContext.clearRect(0, -200, w, canvasContext.canvas.height);
+
+        canvasContext.beginPath();
+        canvasContext.moveTo(0, buffer[0] * 90);
+        for (var x = 2; x < w; x += 2) canvasContext.lineTo(x, buffer[x] * 90);
+        canvasContext.stroke();
+
+        if (isPlaying) requestAnimationFrame(loop)
+    })();
+}
+
+function drawRandom(analyser) {
+    canvasContext.setTransform(1, 0, 0, -1, 0, 200);
+    (function loop() {
+
+        canvasContext.beginPath();
+        canvasContext.moveTo();
+        canvasContext.stroke();
+
+        if (isPlaying) requestAnimationFrame(loop)
+    })
+}

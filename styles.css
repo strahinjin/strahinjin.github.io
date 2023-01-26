@@ -6,6 +6,9 @@ body {
     width: 576px;
     margin: 0 auto;
 }
+canvas {
+    border-radius: 50%;
+}
 h1 {
     font-weight: bold;
     text-align: center;
